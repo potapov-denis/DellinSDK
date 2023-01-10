@@ -103,7 +103,7 @@ class Instantiator
 		if (null === $data) {
 			return null;
 		}
-		
+
 		$data = $build_metadata($data);
 
 
