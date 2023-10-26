@@ -127,9 +127,12 @@ enum PackageType: string implements Titlable
 	case PALLET_WITH_BUBBLE = '0xad97901b0ecef0f211e889fcf4624feb';
 
 
-	public static function PackageTryFrom(string $value): PackageType|null
+	public static function PackageTryFrom(?string $value): PackageType|null
 	{
-		return self::TryFrom($value) ?: self::TryFrom(self::PACKAGES_AVAILABLE[$value]);
+		if (isset(self::PACKAGES_AVAILABLE[$value])) {
+			return self::TryFrom($value) ?: self::TryFrom(self::PACKAGES_AVAILABLE[$value]);
+		}
+		return null;
 	}
 
 	public static function getEnum(): string

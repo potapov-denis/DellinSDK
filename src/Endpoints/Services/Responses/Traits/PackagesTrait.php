@@ -41,9 +41,11 @@ trait PackagesTrait
 	 */
 	public function getPackages(): array
 	{
-		return array_map(static function ($package) {
+		$packages = array_map(static function ($package) {
 			return PackageType::PackageTryFrom($package['uid']);
 		}, (array)$this->get('packages'));
+
+		return array_filter($packages);
 	}
 
 	/**
