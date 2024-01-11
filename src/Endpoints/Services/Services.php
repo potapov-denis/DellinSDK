@@ -29,11 +29,12 @@ declare(strict_types=1);
 
 namespace Yooogi\DellinSDK\Endpoints\Services;
 
-use Yooogi\DellinSDK\Endpoints\Services\Exceptions\{AvailablePackagesException, ConditionsException, DeliveryDatesException, DispatchDatesException, SenderCounteragentException,
-	TerminalDatesException, TimeIntervalException};
+use Yooogi\DellinSDK\Endpoints\Services\Exceptions\{AvailablePackagesException, ConditionsException, DeliveryDatesException, DispatchDatesException, OversizedException,
+	SenderCounteragentException, TerminalDatesException, TimeIntervalException};
 use Yooogi\DellinSDK\Endpoints\Services\Requests\{AvailablePackagesRequest, ConditionsRequest, DeliveryRequest, DeliveryTimeRequest, DispatchRequest, DispatchTimeRequest,
-	SenderCounteragentsRequest, TerminalDatesRequest};
-use Yooogi\DellinSDK\Endpoints\Services\Responses\{AvailablePackagesResponse, ConditionsResponse, DatesResponse, SenderCounteragentsResponse, TimeIntervalResponse};
+	OversizedRequest, SenderCounteragentsRequest, TerminalDatesRequest};
+use Yooogi\DellinSDK\Endpoints\Services\Responses\{AvailablePackagesResponse, ConditionsResponse, DatesResponse, OversizedResponse, SenderCounteragentsResponse,
+	TimeIntervalResponse};
 use Yooogi\DellinSDK\Exceptions\BadRequest;
 use Yooogi\DellinSDK\Http\ApiClient;
 
@@ -93,6 +94,27 @@ final class Services
 			return $this->client->post('/v1/public/request_conditions.json', $request, ConditionsResponse::class);
 		} catch (BadRequest $e) {
 			throw new ConditionsException($e);
+		}
+	}
+
+	/**
+	 * Метод позволяет получить значения весогабаритных характеристик, при которых груз считается негабаритным в зависимости от вида перевозки, на указанную дату.
+	 *
+	 *
+	 * @param OversizedRequest $request
+	 *
+	 * @return OversizedResponse|null
+	 *
+	 * @throws OversizedException
+	 *
+	 * @see https://dev.dellin.ru/api/catalogs/request-conditions/
+	 */
+	public function getOversized(OversizedRequest $request): ?OversizedResponse
+	{
+		try {
+			return $this->client->post('/v1/oversized_cargo_thresholds.json', $request, OversizedResponse::class);
+		} catch (BadRequest $e) {
+			throw new OversizedException($e);
 		}
 	}
 
