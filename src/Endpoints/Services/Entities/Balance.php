@@ -30,10 +30,6 @@ declare(strict_types=1);
 namespace Yooogi\DellinSDK\Endpoints\Services\Entities;
 
 use Yooogi\DellinSDK\Core\Traits\DataAware;
-use Yooogi\DellinSDK\Enum\MailCategory;
-use Yooogi\DellinSDK\Enum\MailRank;
-use Yooogi\DellinSDK\Enum\MailType;
-use Yooogi\DellinSDK\Enum\PaymentMethodType;
 
 /**
  * Информация о движении денежных средств контрагента. Если взаиморасчетов не производилось, значение параметра - null.

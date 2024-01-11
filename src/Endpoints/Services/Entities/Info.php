@@ -31,10 +31,6 @@ namespace Yooogi\DellinSDK\Endpoints\Services\Entities;
 
 use Yooogi\DellinSDK\Core\ArrayOf;
 use Yooogi\DellinSDK\Core\Traits\DataAware;
-use Yooogi\DellinSDK\Enum\MailCategory;
-use Yooogi\DellinSDK\Enum\MailRank;
-use Yooogi\DellinSDK\Enum\MailType;
-use Yooogi\DellinSDK\Enum\PaymentMethodType;
 use Yooogi\DellinSDK\Instantiator;
 
 /**

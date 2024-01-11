@@ -72,6 +72,7 @@ use Yooogi\DellinSDK\Endpoints\Services\Exceptions\AvailablePackagesException;
 use Yooogi\DellinSDK\Endpoints\Services\Exceptions\ConditionsException;
 use Yooogi\DellinSDK\Endpoints\Services\Exceptions\DeliveryDatesException;
 use Yooogi\DellinSDK\Endpoints\Services\Exceptions\DispatchDatesException;
+use Yooogi\DellinSDK\Endpoints\Services\Exceptions\OversizedException;
 use Yooogi\DellinSDK\Endpoints\Services\Exceptions\SenderCounteragentException;
 use Yooogi\DellinSDK\Endpoints\Services\Exceptions\TerminalDatesException;
 use Yooogi\DellinSDK\Endpoints\Services\Exceptions\TimeIntervalException;
@@ -95,6 +96,7 @@ abstract class DellinException extends InvalidArgumentException implements \Yooo
 		OrderSearchException::class => 'Не удалось выполнить поиск заказов.',
 		AvailablePackagesException::class => 'Не удалось получить информацию об доступных типах упаковки.',
 		ConditionsException::class => 'Не удалось получить информацию об ограничениях и возможных значениях параметров.',
+		OversizedException::class => 'Не удалось получить значения весогабаритных характеристик, при которых груз считается негабаритным в зависимости от вида перевозки, на указанную дату. ',
 		DeliveryDatesException::class => 'Не удалось получить информацию об доступных датах доставки.',
 		OrdersLogException::class => 'Не удалось получить журнал заказов.',
 		SenderCounteragentException::class => 'Не удалось получить контрагента.',
