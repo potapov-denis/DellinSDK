@@ -411,11 +411,11 @@ final class ConditionsRequest implements Arrayable
 		$this->data['arrivalPoint'] = $this->arrivalPoint;
 
 		if ($this->volume) {
-			$this->data['volume'] = (round($this->volume, 3) > 0.001) ? round($this->volume, 3) : 0.001;
+			$this->data['volume'] = (round($this->volume, 3) > 0.01) ? round($this->volume, 3) : 0.01;
 		} else {
-			$this->data['volume'] = (round($this->length * $this->width * $this->height, 3) > 0.001)
+			$this->data['volume'] = (round($this->length * $this->width * $this->height, 3) > 0.01)
 				? round($this->length * $this->width * $this->height, 3)
-				: 0.001;
+				: 0.01;
 		}
 		if ($this->weight) $this->data['weight'] = ($this->weight > 0.001) ? $this->weight : 0.001;
 		if ($this->length) $this->data['length'] = ($this->length > 0.01) ? $this->length : 0.01;
