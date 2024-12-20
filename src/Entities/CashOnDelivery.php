@@ -178,7 +178,7 @@ final class CashOnDelivery implements Arrayable
 		$this->data['cashOnDelivery'] = $this->cashOnDelivery;
 		if ($this->orderNumber) $this->data['orderNumber'] = $this->orderNumber;
 		if ($this->orderDate) $this->data['orderDate'] = $this->orderDate->format('Y-m-d');
-		if ($this->cashOnDeliveryPaymentType) $this->data['cashOnDeliveryPaymentType'] = $this->cashOnDeliveryPaymentType->value;
+		if ($this->cashOnDeliveryPaymentType) $this->data['paymentType'] = $this->cashOnDeliveryPaymentType->value;
 		if ($this->products) array_walk($this->products, function ($value) {
 			$this->data['products'][] = $value->toArray();
 		});

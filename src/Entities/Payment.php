@@ -180,6 +180,8 @@ final class Payment implements Arrayable
 
 	public function toArray(): array
 	{
+		unset($this->data['cashOnDelivery']);
+
 		$this->data['type'] = $this->paymentType->value;
 		$this->data['primaryPayer'] = $this->primaryPayer->value;
 		if ($this->paymentCity) $this->data['paymentCity'] = $this->paymentCity;
