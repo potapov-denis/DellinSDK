@@ -158,7 +158,12 @@ $member = Member::create($counterAgent)
   //->setCounteragentID(123);
 
 /* Участники перевозки */
-$members = Members::create($requester, $member, $member);
+$cargo->setOriginCountryCodeOksmNumeric('643');
+$signer = Signer::create(SignerRole::SENDER)
+    ->setEmail('signer@example.com')
+    ->setLkEdoUID('YOUR_LK_EDO_UID');
+$members = Members::create($requester, $member, $member)
+    ->setSigner($signer);
 
 
 /* Создание заказа */
@@ -166,6 +171,7 @@ $orderRequest = OrderRequest::create(DeliveryType::AUTO, $derival, $arrival, $me
     ->setInOrder(false)
     ->setAccompanyingDocuments($acdoc)
     ->setPackages($packages)
+    ->setCustomerPackages(['YOUR_CUSTOMER_PACKAGE_UID'])
     ->withAuth($auth);
 $orderResponse = $dellin->orders->create($orderRequest);
 ```

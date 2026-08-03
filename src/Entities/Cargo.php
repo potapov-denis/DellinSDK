@@ -63,6 +63,7 @@ final class Cargo implements Arrayable
 	private float $oversizedVolume = 0;
 
 	private ?string $freightName = null;
+	private ?string $originCountryCodeOksmNumeric = null;
 
 	private float $statedValue;
 	private DeliveryType $deliveryType = DeliveryType::AUTO;
@@ -229,6 +230,23 @@ final class Cargo implements Arrayable
 	}
 
 	/**
+	 * Код страны происхождения груза по ОКСМ.
+	 */
+	public function getOriginCountryCodeOksmNumeric(): ?string
+	{
+		return $this->originCountryCodeOksmNumeric;
+	}
+
+	/**
+	 * Код страны происхождения груза по ОКСМ.
+	 */
+	public function setOriginCountryCodeOksmNumeric(?string $codeOksmNumeric): Cargo
+	{
+		$this->originCountryCodeOksmNumeric = $codeOksmNumeric;
+		return $this;
+	}
+
+	/**
 	 * @return float
 	 */
 	public function getHazardClass(): float
@@ -352,6 +370,12 @@ final class Cargo implements Arrayable
 
 		if ($this->freightName) {
 			$this->data['freightName'] = $this->freightName;
+		}
+
+		if ($this->originCountryCodeOksmNumeric !== null && $this->originCountryCodeOksmNumeric !== '') {
+			$this->data['originCountry']['codeOksmNumeric'] = $this->originCountryCodeOksmNumeric;
+		} else {
+			unset($this->data['originCountry']);
 		}
 		return $this->data;
 	}

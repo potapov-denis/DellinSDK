@@ -44,6 +44,8 @@ final class Members implements Arrayable
 	private Member $receiver;
 	/** @var Member ?$third Третье лицо */
 	private ?Member $third = null;
+	/** @var Signer|null $signer Адресат электронного поручения экспедитору */
+	private ?Signer $signer = null;
 	private bool $auth = false;
 
 	/**
@@ -56,12 +58,13 @@ final class Members implements Arrayable
 	 *
 	 * @see https://dev.dellin.ru/api/ordering/ltl-request/#_header14
 	 */
-	public function __construct(Requester $requester, Member $sender, Member $receiver, ?Member $third = null)
+	public function __construct(Requester $requester, Member $sender, Member $receiver, ?Member $third = null, ?Signer $signer = null)
 	{
 		$this->setRequester($requester);
 		$this->setSender($sender);
 		$this->setReceiver($receiver);
 		$this->setThird($third);
+		$this->setSigner($signer);
 	}
 
 	/**
@@ -74,7 +77,7 @@ final class Members implements Arrayable
 	 *
 	 * @see https://dev.dellin.ru/api/ordering/ltl-request/#_header14
 	 */
-	public static function create(Requester $requester, Member $sender, Member $receiver, ?Member $third = null): self
+	public static function create(Requester $requester, Member $sender, Member $receiver, ?Member $third = null, ?Signer $signer = null): self
 	{
 		return new self(...\func_get_args());
 	}
@@ -147,6 +150,17 @@ final class Members implements Arrayable
 		return $this;
 	}
 
+	public function getSigner(): ?Signer
+	{
+		return $this->signer;
+	}
+
+	public function setSigner(?Signer $signer): Members
+	{
+		$this->signer = $signer;
+		return $this;
+	}
+
 	public function toArray(): array
 	{
 		$this->sender->setAuth($this->isAuth());
@@ -158,6 +172,7 @@ final class Members implements Arrayable
 		$this->data['sender'] = $this->sender->toArray();
 		$this->data['receiver'] = $this->receiver->toArray();
 		if ($this->third) $this->data['third'] = $this->third->toArray();
+		if ($this->signer) $this->data['signer'] = $this->signer->toArray();
 
 		return $this->data;
 	}

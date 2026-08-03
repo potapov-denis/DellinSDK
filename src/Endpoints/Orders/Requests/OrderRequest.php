@@ -66,6 +66,8 @@ final class OrderRequest implements Arrayable
 	private ?AccompanyingDocumentsCollection $accompanyingDocumentsCollection = null;
 	private array $packages = [];
 	private array $accompanyingDocuments = [];
+	/** @var string[] UID видов упаковки клиента */
+	private array $customerPackages = [];
 
 	private ?string $smsback = null;
 	private ?string $comment = null;
@@ -330,6 +332,32 @@ final class OrderRequest implements Arrayable
 		return $this;
 	}
 
+	/**
+	 * @return string[] UID видов упаковки клиента
+	 */
+	public function getCustomerPackages(): array
+	{
+		return $this->customerPackages;
+	}
+
+	/**
+	 * @param string[] $customerPackages UID видов упаковки клиента
+	 */
+	public function setCustomerPackages(array $customerPackages): OrderRequest
+	{
+		$this->customerPackages = array_values($customerPackages);
+		return $this;
+	}
+
+	/**
+	 * Добавить упаковку клиента по UID из собственного справочника.
+	 */
+	public function addCustomerPackage(string $uid): OrderRequest
+	{
+		$this->customerPackages[] = $uid;
+		return $this;
+	}
+
 
 	public function toArray(): array
 	{
@@ -353,6 +381,14 @@ final class OrderRequest implements Arrayable
 
 		if ($this->smsback) $this->data['delivery']['smsback'] = $this->smsback;
 		if ($this->comment) $this->data['delivery']['comment'] = $this->comment;
+		if ($this->customerPackages !== []) {
+			$this->data['delivery']['customerPackages'] = array_map(
+				static fn(string $uid): array => ['uid' => $uid],
+				$this->customerPackages
+			);
+		} else {
+			unset($this->data['delivery']['customerPackages']);
+		}
 		return $this->data;
 	}
 
