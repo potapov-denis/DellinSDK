@@ -6,6 +6,7 @@ namespace Yooogi\DellinSDK\Entities;
 
 use Yooogi\DellinSDK\Core\Arrayable;
 use Yooogi\DellinSDK\Core\Traits\DataAware;
+use Yooogi\DellinSDK\Enum\EltcForwarderReqKindType;
 use Yooogi\DellinSDK\Enum\SignerRole;
 
 /**
@@ -24,6 +25,9 @@ final class Signer implements Arrayable
 	private array $emails = [];
 
 	private ?string $lkEdoUID = null;
+
+	/* @var EltcForwarderReqKindType */
+	private EltcForwarderReqKindType $eltcForwarderReqKindType = EltcForwarderReqKindType::DRAFT;
 
 	/**
 	 * @param string|string[]|null $emails Один или несколько адресов электронной почты
@@ -105,6 +109,18 @@ final class Signer implements Arrayable
 		return $this;
 	}
 
+	public function getEltcForwarderReqKindType(): EltcForwarderReqKindType
+	{
+		return $this->eltcForwarderReqKindType;
+	}
+
+	public function setEltcForwarderReqKindType(EltcForwarderReqKindType $eltcForwarderReqKindType): void
+	{
+		$this->eltcForwarderReqKindType = $eltcForwarderReqKindType;
+	}
+
+
+
 	public function toArray(): array
 	{
 		$this->data = ['role' => $this->role->value];
@@ -116,6 +132,11 @@ final class Signer implements Arrayable
 		if ($this->lkEdoUID !== null && $this->lkEdoUID !== '') {
 			$this->data['lkEdoUID'] = $this->lkEdoUID;
 		}
+
+		if ($this->eltcForwarderReqKindType !== null ) {
+			$this->data['eltcForwarderReqKindType'] = $this->eltcForwarderReqKindType->value;
+		}
+
 
 		return $this->data;
 	}
